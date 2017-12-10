@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Web app lifecycle</title>
+		<style>
+			html {
+				font-size: 24px;
+				font-family: sans-serif;
+			}
+			#first { color: green; }
+			#second { color: red; }
+		</style>
+	</head>
+	<body>
+		<ul id="first"></ul>
+		<ul id="second"><ul>
+		<script>
+			function addMessage(element, message) {
+				let messageElement = document.createElement("li");
+				messageElement.textContent = message;
+				element.appendChild(messageElement);
+			}
+
+			let first = document.getElementById("first");
+			addMessage(first, "Page loading...");
+
+			document.body.addEventListener("mousemove", function() {
+				let second = document.getElementById("second");
+				addMessage(second, "Event: mousemove");
+			});
+
+			document.body.addEventListener("click", function() {
+				let second = document.getElementById("second");
+				addMessage(second, "Event: click");
+			});
+
+		</script>
+	</body>
+</html>
+
+<!--
+Summary: 
+* HTML code is received by the browser as a blueprint to create the DOM (Document Object Model).
+* JS to modify DOM and bring dynamic behaivor to web applications.
+* Execution of web side applications occurs on two phases:
+1. Page Building: HTML procesed to make the DOM. Global JS is executed.
+2. Event Handling: One at a time, order in the generated (event queue). 
+-->
