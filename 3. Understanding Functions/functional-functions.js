@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 // Functions are first-class objects
 
 //	Objects recap
@@ -45,3 +47,55 @@ console.log(returnMyFunction()());	// Bye?
 // Posses properties that can be dynmically created and assigned
 let myFunctionX = function(){};
 myFunctionX.name = "Champ";
+
+// Since functions are first-class objects they can receive other functions as arguments (callback functions)
+let text = "Some Random Text";
+
+function uselessFn(callbackFn) {
+	return callbackFn();
+}
+
+assert(uselessFn(function() { return text; }) === text, "The useless function works!");
+
+// Storing a collection of unique functions
+let store = {
+	nextId: 1,
+	cache: {},
+	add: function(fn) {
+		if(!fn.id) {
+			fn.id = this.nextId++;
+			this.cache[fn.id] = fn;
+			return true;
+		}
+	}
+};
+
+function myVideoMaker(){}
+
+assert(store.add(myVideoMaker), "Function was safely added.");
+assert(!store.add(myVideoMaker), "Function was added once.");
+
+// Self-memoizing functions: building functions capable of remember its previously computed values
+// good uses: calculating animations, searching data that barely changes, time-consuming math
+function isPrime(value) {
+	if(!isPrime.answers) {
+		isPrime.answers = {};	// creates the cache
+	}
+
+	if(isPrime.answers[value] !== undefined) {
+		return isPrime.answers[value];
+	}
+
+	let prime = value !== 1;
+
+	for (let i = 2; i < value; i++) {
+		if(value % i === 0) {
+			prime = false;
+			break;
+		}
+	}
+	return isPrime.answers[value] = prime;	// Stores the computed value
+}
+
+assert(isPrime(11), "11 is a prime");
+assert(isPrime.answers[11], "11 is cached");
