@@ -99,3 +99,30 @@ function isPrime(value) {
 
 assert(isPrime(11), "11 is a prime");
 assert(isPrime.answers[11], "11 is cached");
+
+// Function declarations and function expressions
+// Declarations: name is mandatory, they're hoisted.
+function myFunctionDeclaration(a1, a2, a3) {
+	console.log(a1 * a2 * a3);
+}
+myFunctionDeclaration(2, 2, 2);	// 8
+
+// Expressions. Name is optional, they're not hoisted.
+let myFunctionExp = function(b1, b2, b3) {
+	console.log(b1 + b2 + b3);
+}
+myFunctionExp(1, 2, 3);	// 6
+
+// IIFE, gets executed as a immediate function
+(function selfExecutedFunction(c1, c2, c3){
+	console.log(c1 + c2 + c3);	// 9
+})(2, 3, 4);
+
+// Arrow Function, syntatic sugar for functions
+let values = [8, 2, 9, 1, 11, 3];
+let sortedValues = values.sort((value1, value2) => value1 - value2);
+console.log(sortedValues);
+
+// Arguments and parameters
+function exampleFunction(a, b, c) {}	// a, b, c are parameters
+let exampleVariable = exampleFunction("Hi", "Bye", 2); // "Hi", "Bye", 2 are arguments 
