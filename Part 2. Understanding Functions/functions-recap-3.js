@@ -125,4 +125,19 @@ console.log(sortedValues);
 
 // Arguments and parameters
 function exampleFunction(a, b, c) {}	// a, b, c are parameters
-let exampleVariable = exampleFunction("Hi", "Bye", 2); // "Hi", "Bye", 2 are arguments 
+let exampleVariable = exampleFunction("Hi", "Bye", 2); // "Hi", "Bye", 2 are arguments
+
+//	Rest parameters: Last function paramater can group all the rest of arguments
+function usingRestParamaeters(team, ...players) {
+	return `${team} is made up by ${players} `;
+}
+console.log(usingRestParamaeters('Colts', 'Andrew Luck', ' Frank Gore ', ' T. Y Hilton' ));
+
+//	Default parameters: We can assign primitive values and complex values, even functions.
+function usingDefaultParameters(artist = "Frank Sinatra", song = "My Way", multimediaPlayer = "Spotify") {
+	let string = `My favorite song is ${song} by ${artist}, currently playing at ${multimediaPlayer}`;
+	return string;
+}
+
+console.log(usingDefaultParameters());	// Uses default parameters since no values are passed
+console.log(usingDefaultParameters('Daft Punk', 'Instant Crush'));	// Uses the first and second argument
