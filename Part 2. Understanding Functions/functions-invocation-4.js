@@ -21,7 +21,7 @@ function myFunctionC(a, b, c) {
 	assert(b === 2, 'The value of b is 2');
 
 	// Accessing associated parameters via arguments[n] notation
-	assert(arguments[2] === 4, 'The value of c is 3');
+	assert(arguments[2] === 3, 'The value of c is 3');
 
 	// Accessing not defined parameters via arguments[n] notation
 	assert(arguments[3] === 4, 'The value of d is 4');
@@ -42,3 +42,52 @@ function sum(...numbers) {
 assert(sum(1, 2, 3) === 6, "Adding three numbers");
 assert(sum(1, 2) === 3, "Adding two numbers");
 
+// 4 Ways to Invoke Functions
+function someFunction() { 
+	console.log('returning someFunction') 
+}
+
+someFunction();	// (1) as a function, straightforward
+
+let someObject = {
+	someOtherFunction: function() { 
+		console.log('returning someOtherFunction') 
+	}
+};
+
+someObject.someOtherFunction();	// (2) as a method, invocation of an object
+
+function Tree(type = "pine") {
+	this.type = type;
+}
+
+let myTree = new Tree("bamboo");	// (3) as a constructor, 'new' brings a new object
+console.log(myTree.type);
+
+// (4) with method apply.(thisArg, arrayOfValues)
+let numbers = [4, 2, 1, 9, 6, 7];
+
+let max = Math.max.apply(null, numbers);
+console.log(max);
+
+let min = Math.min.apply(null, numbers);
+console.log(min);
+
+// (4) with method call.(thisArg, comma separated values)
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+function Food(name, price) {
+  Product.call(this, name, price); // reference to call Product with 'this' Food object
+  this.category = 'food';
+}
+
+function Toy(name, price) {
+  Product.call(this, name, price);	// reference to call Product with 'this' Toy object
+  this.category = 'toy';
+}
+
+let cheese = new Food('cheese', 8.00);
+let fun = new Toy('superhero doll', 12.00);
