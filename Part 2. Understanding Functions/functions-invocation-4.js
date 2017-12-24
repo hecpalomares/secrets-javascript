@@ -91,3 +91,38 @@ function Toy(name, price) {
 
 let cheese = new Food('cheese', 8.00);
 let fun = new Toy('superhero doll', 12.00);
+
+// 'this' context in functions
+function whatsMyContext() { return this; }
+
+let myYObject = {
+	getMyThis: whatsMyContext
+}
+
+let myXObject = {
+	getMyThis: whatsMyContext
+}
+
+assert(whatsMyContext() === global, "'this' reference to window object");
+
+assert(myXObject.getMyThis() === myXObject, "'this' reference to myXObject");
+
+assert(myYObject.getMyThis() === myYObject, "'this' reference to myYObject");
+
+// Invoking our functions directly (line 106) with 'this' as a refernce to global.
+// Or via a methods (line 108, 110) with 'this' referencing to the object (function) itself
+
+function Dog(name, race, age) {
+	this.name = name;
+	this.race = race;
+	this.age = age;
+
+	this.myContext = function() {
+		return this;
+	}
+}
+
+let dadsDog1 = new Dog("Nacho", "Golden Labrador", 7);
+let dadsDog2 = new Dog("Thor", "Black Labrador", 3);
+
+assert(dadsDog1 !== dadsDog2.myContext(), "'this' reference to a different instance since 'new' returns a new Object");
