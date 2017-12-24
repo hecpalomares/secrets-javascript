@@ -126,3 +126,21 @@ let dadsDog1 = new Dog("Nacho", "Golden Labrador", 7);
 let dadsDog2 = new Dog("Thor", "Black Labrador", 3);
 
 assert(dadsDog1 !== dadsDog2.myContext(), "'this' reference to a different instance since 'new' returns a new Object");
+
+function sumAllNumbers() {
+	let result = 0;
+	for(let n = 0; n < arguments.length; n++) {
+		result+=arguments[n];
+	}
+	this.result = result;
+}
+
+let objA = {};
+let objB = {};
+
+sumAllNumbers.apply(objA, [1, 2, 3, 4]);	// setting the function context to be this: objA
+sumAllNumbers.call(objB, 5, 6, 7, 8);			// setting the function context to be this: objB
+
+assert(objA.result === 10, "called sumAllNumbers via apply");
+assert(objB.result === 26, "called sumAllNumbers via call");
+
