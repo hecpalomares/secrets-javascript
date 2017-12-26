@@ -144,3 +144,36 @@ sumAllNumbers.call(objB, 5, 6, 7, 8);			// setting the function context to be th
 assert(objA.result === 10, "called sumAllNumbers via apply");
 assert(objB.result === 26, "called sumAllNumbers via call");
 
+/*Excercises*/
+// Sum all numbers using implicit 'arguments' parameter (imperative)
+function sumArgs() {
+	let sum = 0;
+	for(let i = 0; i < arguments.length; i++) {
+		sum+=arguments[i];
+	}
+	return sum;
+}
+
+assert(sumArgs(1, 2, 3, 4) === 10, "Adding four numbers should be 10");
+assert(sumArgs(1, 2) === 3, "Adding two numbers should be 3");
+
+// Sum all numbers using implicit 'rest' parameters (imperative)
+function sumRest(...numbers) {
+	let sum = 0;
+	for(let i = 0; i < numbers.length; i++) {
+		sum+=numbers[i];
+	}
+	return sum;
+}
+
+assert(sumRest(1, 2, 3, 4) === 10, "Adding four numbers should be 10");
+assert(sumRest(1, 2) === 3, "Adding two numbers should be 3");
+
+// Sum all numbers using implicit 'rest' parameters and reduce es6 function (declarative)
+function sumRestReduce(...numbers) {
+	return numbers.reduce((a, b) => a + b, 0);
+}
+
+assert(sumRestReduce(1, 2, 3, 4) === 10, "Adding four numbers should be 10");
+assert(sumRestReduce(1, 2) === 3, "Adding two numbers should be 3");
+

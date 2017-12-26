@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bind methods</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta name="description" content="Demo project">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style></style>
+	</head>
+	<body>
+		<div style="display: flex; height: 25vh; justify-content:center; align-items: center">
+				<button id="test-id" style="background:red;">Click Me!</button>
+		</div>
+		<script>
+			let button = {
+				clicked: false,
+				click: function() {
+					this.clicked = true;
+					console.log("The button has been clicked", button.clicked);
+				}
+			};
+
+			let elem = document.getElementById("test-id");
+			// Use the bind function to create a new function bound to the button object
+			// 'this', function context is always set to the object binded
+			elem.addEventListener("click", button.click.bind(button));
+
+			let boundFunction = button.click.bind(button);
+			console.log("Calling bind creates a new function", boundFunction != button.click);
+		</script>
+	</body>
+</html>
