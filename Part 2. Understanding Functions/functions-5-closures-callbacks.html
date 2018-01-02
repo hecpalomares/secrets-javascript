@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<title>Closures callbacks</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta name="description" content="Demo project">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style></style>
+	</head>
+	<body>
+		<div id="box1" style="position: absolute;">First Box</div>
+		<div id="box2" style="position: absolute;">Second Box</div>
+		<div id="box3" style="position: absolute;">Third Box</div>
+		<script>
+			function animateIt(elementId) {
+				let elem = document.getElementById(elementId);
+				let tick = 0;
+				let timer = setInterval(function() {
+					if(tick < 250) {
+						elem.style.left = tick + "px";
+						elem.style.top = tick + "px";
+						if(elementId === "box1") {
+							tick++;	
+						} else if (elementId === "box2") {
+							tick += 2;
+						} else if (elementId === "box3") {
+							tick += 3;
+						}
+					} else {
+						clearInterval(timer);
+					}
+				}, 50);
+			}
+
+			animateIt("box1");	// each animation gets its own private little bubble of variables
+			animateIt("box2");	// the instance has no access to variables in the other closures
+			animateIt("box3");	// we can do many instances at once with the same function!
+		</script>
+	</body>
+</html>
