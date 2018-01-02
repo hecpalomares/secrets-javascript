@@ -49,3 +49,27 @@ let myOak = new Tree();	// new object instance myOak has its own _leaves variabl
 myOak.grow();
 
 assert(myOak.getLeaves() === 1, "My second tree has its own leaves variable");
+
+// Execution Context: Internal JS concept tht the JS Engine use to track the execution of functions
+function reportAnimal(animal) {
+	reportMessage(`The ${animal} has escaped!`);	// 
+}
+
+function reportMessage(message) {
+	console.log(message);
+}
+
+reportAnimal("cebra");
+reportAnimal("lion");
+
+// The call stack, keeps track of all the execution context
+
+// Call stack: reportAnimal("cebra");
+// Call stack: reportMessage("The cebra has escaped!"), reportAnimal("cebra");
+// Push reportMessage("The cebra has escaped!") from CS
+// Push reportAnimal("cebra") from CS
+
+// Call stack: reportAnimal("lion");
+// Call stack: reportMessage("The lion has escaped!"), reportAnimal("lion");
+// Push reportMessage("The lion has escaped!") from CS
+// Push reportAnimal from CS("lion")
