@@ -176,4 +176,3 @@ function sumRestReduce(...numbers) {
 
 assert(sumRestReduce(1, 2, 3, 4) === 10, "Adding four numbers should be 10");
 assert(sumRestReduce(1, 2) === 3, "Adding two numbers should be 3");
-

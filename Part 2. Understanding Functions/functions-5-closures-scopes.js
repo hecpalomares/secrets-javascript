@@ -27,7 +27,18 @@ function outerFunction2() {
 
 outerFunction2();
 
-// Example 5.3: Closure to mimicking private variables.
+// Example 5.2: Hoisting, register in lexical enviroment (global scope) the variables and functions
+assert(typeof func === "function", "Function declarations are hoisted");
+
+let myFuncExpr = function(){}
+let myArrowFunc = (x) => x;
+
+assert(typeof myFuncExpr === "function", "Function Expressions are not hoisted");
+assert(typeof myArrowFunc === "function", "Arrow functions are not hoisted");
+
+function func(){}
+
+// Example 5.3: Closure, to mimicking private variables.
 function Tree() {
 	let _leaves = 0; // Declare variable inside Tree constructor function. Scope of variable is limited inisde constructor it becomes "private"
 	this.getLeaves = function() {

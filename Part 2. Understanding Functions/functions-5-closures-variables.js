@@ -60,5 +60,4 @@ rutila.bark();
 assert(rutila.getBarks() === 1, "Via our method getBarks() we can get our private variable");
 
 let nacho = new Dog();
-
 assert(nacho.getBarks() === 0, "The second Dog object gets its own barks variable");
