@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM Traversal</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div id="subTree">
+			<form>
+				<input type="text"/>
+			</form>
+			<p> Paragraph </p>
+			<span> Span </span>
+		</div>
+	</body>
+</html>
+<script>
+function* DOMTraversal(element) {
+	yield element;
+	element = element.firstElementChild;
+	while (element) {
+		yield* DOMTraversal(element);
+		element = element.nextElementSibling;
+	}
+}
+
+const body = document.body;
+for(let element of DOMTraversal(subTree)) {
+	console.log(element.nodeName);	// DIV, FORM, INPUT, P, SPAN
+}
+
+</script>
+

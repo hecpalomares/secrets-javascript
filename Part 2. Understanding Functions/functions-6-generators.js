@@ -64,3 +64,26 @@ for(let drink of DrinksGenerator()){
 }
 
 console.log(drinksArray);
+
+// Examples
+
+// Generating id's
+function *IdGenerator() {
+	let id = 0;		// variable to keep track of the Ids
+	while(true) {	// loop to generate IDs
+		yield ++id;
+	}
+}
+
+// An iterator through which we'll request new IDs from the generator
+const idIterator = IdGenerator();
+
+// Request three new ids
+const bill1 = { id: idIterator.next().value };
+const bill2 = { id: idIterator.next().value };
+const bill3 = { id: idIterator.next().value };
+
+assert(bill1.id === 1, "First ninja has id 1");
+assert(bill2.id === 2, "First ninja has id 2");
+assert(bill3.id === 3, "First ninja has id 3");
+
