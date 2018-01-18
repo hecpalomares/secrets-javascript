@@ -87,3 +87,22 @@ assert(bill1.id === 1, "First ninja has id 1");
 assert(bill2.id === 2, "First ninja has id 2");
 assert(bill3.id === 3, "First ninja has id 3");
 
+// Sending data to a generator
+function* myFlightGenerator(action) {
+	const fakePlane = yield("AirBus " + action);
+	assert(fakePlane === "Boeing", "plane infiltrated as Boeing");
+}
+
+const planeIterator = myFlightGenerator("fly");
+
+const planeResult1 = planeIterator.next();
+const planeResult2 = planeIterator.next("Boeing");
+
+console.log(planeResult1);
+console.log(planeResult2);
+
+// Four states of a generator.
+// 1. Suspended Start. When a gen is created. None of the code is executed.
+// 2. Executing. When the code of a gen is being executed. Happens when calling next()
+// 3. Suspended Yield. During code execution a yield is reached, returns an object {value: myValue, done: boolean}
+// 4. Completed. If the generatar gets out of yields (code compelted) or a return statement is reached.
