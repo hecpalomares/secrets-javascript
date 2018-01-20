@@ -42,3 +42,21 @@ myImmediatePromise.then(result => {
 });
 
 console.log("At Code End");
+
+// (6.12) Explicitly rejection a Promise
+const promiseRejected = new Promise((resolve, reject) => {
+	reject("Reject Our Promise");
+});
+
+promiseRejected.then(result => {
+	console.log(`Result: ${result}`);
+}, err => {
+	console.log(`Error: ${err}`);	// When rejecting a promise the second callback (err) is always invoked
+});
+
+// (6.13) Chaining a catch method
+promiseRejected.then(result => {
+	console.log(`Result: ${result} 2`);
+}).catch(err => {
+	console.log(`Error: ${err} 2`);	// Catch provides an error callback, useful when working with chains of promises
+});
