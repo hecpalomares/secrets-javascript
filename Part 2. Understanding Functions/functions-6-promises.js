@@ -123,7 +123,7 @@ multiplyPromise.then(num => {
 	console.log(`An error has happened: ${error}`);	
 });
 
-// (6.17) Waiting a number of promises with Promise.all.
+// (6.17) Waiting a number of promises with Promise.all
 let promiseOne = new Promise((resolve, reject) => { 
 	setTimeout(() => { 
 		resolve("First result solved at 1000ms"); 
@@ -138,7 +138,7 @@ let promiseTwo = new Promise((resolve, reject) => {
 
 let promiseThree = new Promise((resolve, reject) => { 
 	setTimeout(() => { 
-		resolve("First result solved at 4000ms"); 
+		resolve("Third result solved at 4000ms"); 
 	}, 4000);
 });
 
@@ -151,6 +151,34 @@ Promise.all([promiseOne, promiseTwo, promiseThree]).then(results => {	// Multipl
 
 	assert(results !== undefined && firstPromise !== undefined && secondPromise !== undefined 
 	&& thirdPromise !== undefined, "Nothing is undefined!");
+}).catch(err => {
+	console.log(`An error has happened: ${err}`);
+});
+
+// (6.18) Racing promises with Promise.race
+let promiseRaceOne = new Promise((resolve, reject) => { 
+	let time = 1500;
+	setTimeout(() => { 
+		resolve({name: "Promise 1", time}); 
+	}, time);
+});
+
+let promiseRaceTwo = new Promise((resolve, reject) => { 
+	let time = 750;
+	setTimeout(() => { 
+		resolve({name: "Promise 2", time}); 
+	}, time);
+});
+
+let promiseRaceThree = new Promise((resolve, reject) => { 
+	let time = 1250;
+	setTimeout(() => { 
+		resolve({name: "Promise 3", time});  
+	}, time);
+});
+
+Promise.race([promiseRaceOne, promiseRaceTwo, promiseRaceThree]).then(result => {
+	console.log(`Racing, the first promise returned is: ${result.name} with ${result.time}ms`);
 }).catch(err => {
 	console.log(`An error has happened: ${err}`);
 });
