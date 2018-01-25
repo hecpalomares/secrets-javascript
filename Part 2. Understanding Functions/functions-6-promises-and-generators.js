@@ -34,7 +34,7 @@ function async(generator) {
 }
 
 // Summary Generators:
-// 1. Functions that generate sequence of values -not all at once, but on request basis.
+// 1. Functions that generate sequence of values -not all at once, but on request basis-.
 // 2. Can suspend and resume their execution. After generating a value it suspends the main thread, and waits for next request.
 // 3. Declared using an (*). Use yield to yields a value and suspend the main thread. Use yield* to yields another generator.
 // 4. Use .next() method to request new values.
@@ -93,3 +93,20 @@ let b3 = myGenerator.next(2).value;	// undefined
 console.log(b1);
 console.log(b2);
 console.log(b3);
+
+// 4
+const promiseX = new Promise((resolve, reject) => {
+	reject("Nay");
+});
+
+promiseX.then(val => console.log("Success: ", val))
+				.catch(e => console.log("Error", e));	// Error nay
+
+// 5
+const promiseY = new Promise((resolve, reject) => {
+	resolve("Aye!");	
+	setTimeout(() => reject("Nay"), 500);
+});
+
+promiseY.then(val => console.log("Success 2: ", val))
+				.catch(e => console.log("Error 2: ", e));	// Error nay
