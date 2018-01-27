@@ -73,7 +73,7 @@ function* TreeGenerator() {
 
 let trees = [];
 
-for(let tree of TreeGenerator()) {
+for(let tree of TreeGenerator()) {	// for...of in generators yields every value of the generator
 	trees.push(tree);
 }
 
@@ -86,9 +86,9 @@ function *Gen(val) {
 }
 
 let myGenerator = Gen(2);
-let b1 = myGenerator.next(3).value;	// 4
-let b2 = myGenerator.next(4).value;	// 4
-let b3 = myGenerator.next(2).value;	// undefined
+let b1 = myGenerator.next(3).value;	// 4 	when first called got the value of (line 84)
+let b2 = myGenerator.next(4).value;	// 4	directly from (line 85)
+let b3 = myGenerator.next(2).value;	// undefined, since we only have two yieilds.
 
 console.log(b1);
 console.log(b2);
@@ -100,7 +100,7 @@ const promiseX = new Promise((resolve, reject) => {
 });
 
 promiseX.then(val => console.log("Success: ", val))
-				.catch(e => console.log("Error", e));	// Error nay
+				.catch(e => console.log("Error", e));	// Error nay since is a reject (line 99)
 
 // 5
 const promiseY = new Promise((resolve, reject) => {
@@ -108,5 +108,5 @@ const promiseY = new Promise((resolve, reject) => {
 	setTimeout(() => reject("Nay"), 500);
 });
 
-promiseY.then(val => console.log("Success 2: ", val))
-				.catch(e => console.log("Error 2: ", e));	// Error nay
+promiseY.then(val => console.log("Success 2: ", val))	// Resolve, since it got solved first than the reject
+				.catch(e => console.log("Error 2: ", e));
