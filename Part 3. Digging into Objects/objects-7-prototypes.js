@@ -66,3 +66,35 @@ assert(player.kick(), "Calling the instance method, not the prototype method.");
 
 // Avoid calling instance methods and prototype methods the same, since instance > prototype, as shown by (lines 65).
 // If a property can be found on the instance itself, the prototype is not consulted.
+
+// 7.5 Examing the type of an instance and its constructor
+function Drink() {}
+const whisky = new Drink();
+
+assert(typeof whisky === "object", "The type of the instance is object.");
+assert(whisky instanceof Drink, "instanceof describes the constructor");
+assert(whisky.constructor === Drink, "The whisky object was created by the Drink function");
+
+// 7.6 Instantiang a new object using a reference to a constructor
+function Sport(){}
+
+const football = new Sport();
+const basketball = new football.constructor();				// Constructs a second sport from the first
+
+assert(basketball instanceof Sport, "It is a sport");	// Proves the new object
+assert(football !== basketball, "Different sports");	// Two diferent instances, not the same object
+
+// Achieving inheritance, form of reuse in which new objects have access to properties of existing objects.
+
+// 7.8 Achieving inhertiance via prototypes
+function Person(){}
+Person.prototype.eat = function(){}
+
+function Programmer(){}
+Programmer.prototype = new Person();
+
+const me = new Programmer();
+assert(me instanceof Programmer, "I'm an instance of Programmer prototype");
+assert(me instanceof Person, "... and the Person prototype");
+assert(me instanceof Object, "... and the Object prototype");
+assert(typeof me.eat === "function", "... and can eat!");
