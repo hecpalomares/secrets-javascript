@@ -144,3 +144,57 @@ assert(ignaxio.constructor === Dog, "dog instances and Dog constructor are match
 for(let prop in ignaxio) {
 	console.log(prop);	// Only enumerable property is eat
 }
+
+// 7.13 Using a class of ES6
+class Car {
+	constructor(model) {	// Constructor function that gets returned when called with keyword new
+		this.model = model;
+		this.engineTurnedOn = false;
+	}
+
+	turnOnEngine() {				// Defines addiotional methods accesible by all Car instances
+		this.engineTurnedOn = true;
+		return this.engineTurnedOn;
+	}
+}
+
+let myFirstCar = new Car("Chevy Monza");	// Instanties a new car object with the keyword new. Passing needed parameters.
+
+assert(myFirstCar instanceof Car, "myFirstCar is a instanceof Car");
+assert(myFirstCar.model === "Chevy Monza", "The model of my car is Chevy Monza");
+assert(myFirstCar.turnOnEngine(), "And can be turned on");
+
+// Classes are syntatic sugar, we are still using old prototypes
+// function Car(model) {
+// 	this.model = model;
+// 	this.engineTurnedOn = false;
+// }
+
+// Car.prototype.turnOnEngine = function() {
+// 	this.turnOnEngine = true;
+// 	return this.turnOnEngine;
+// }
+
+// 7.14 Static Methods on ES6
+class Plane {
+	constructor(model, price) {
+		this.model = model;
+		this.price = price;
+	}
+
+	takeFlight() {
+		return true;
+	}
+
+	static compare(plane1, plane2) {
+		return plane1.price - plane2.price;
+	}
+
+}
+
+let plane1 = new Plane("Boeing 747", 45);
+let plane2 = new Plane("F-15", 30);
+
+assert(!("compare" in plane1) && !("compare" in plane2), "Plane instances do not have access to compare static method");
+assert(Plane.compare(plane1, plane2) > 0, "The Plane class can use the compare static method");
+assert(!("takeFlight" in Plane), "The Plane class can't use the takeFlight() method");
