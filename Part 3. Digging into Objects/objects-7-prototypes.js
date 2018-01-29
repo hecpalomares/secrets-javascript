@@ -98,3 +98,49 @@ assert(me instanceof Programmer, "I'm an instance of Programmer prototype");
 assert(me instanceof Person, "... and the Person prototype");
 assert(me instanceof Object, "... and the Object prototype");
 assert(typeof me.eat === "function", "... and can eat!");
+console.log(me.constructor === Person); // (Why not Progammer?!)
+
+// 7.9 Configuring Object Properties
+let plane = {};
+plane.model = "Boeing 747";
+plane.color = "Blue";
+
+Object.defineProperty(plane, "id", {
+	configurable: false,	// Property description can be changed; and delete
+	enumerable: false,		// Show up in for...in loops
+	value: "XFU-754",			// Value of the property, starts as undefined
+	writable: false				// The property value can be reassigned
+});
+
+assert("id" in plane, "We can access the id");
+
+for(let prop in plane) {
+	console.log(prop);	// model, color (id not enumerable, line 109)
+	assert(prop !== undefined, "Enumerating property")
+}
+
+plane.id = "RZT-624";
+console.log(plane.id);	// XFU-754 (id not writable, line 111)
+
+delete plane.id;
+console.log(plane.id);	// XFU-754 (id not deletable, line 108)
+
+// 7.10 Fixing the Constructor Property Problem
+function Animal(){}
+Animal.prototype.eat = function(){}
+
+function Dog(){}
+Dog.prototype = new Animal();
+
+Object.defineProperty(Dog.prototype, "constructor", {
+	enumerable: false,
+	value: Dog,
+	writable: true
+});
+
+let ignaxio = new Dog();
+assert(ignaxio.constructor === Dog, "dog instances and Dog constructor are matched, unlike the line 101");
+
+for(let prop in ignaxio) {
+	console.log(prop);	// Only enumerable property is eat
+}
