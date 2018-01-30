@@ -198,3 +198,57 @@ let plane2 = new Plane("F-15", 30);
 assert(!("compare" in plane1) && !("compare" in plane2), "Plane instances do not have access to compare static method");
 assert(Plane.compare(plane1, plane2) > 0, "The Plane class can use the compare static method");
 assert(!("takeFlight" in Plane), "The Plane class can't use the takeFlight() method");
+
+// 7.15 Inheritance in ES6
+class Movie {
+	constructor(name, rating) {
+		this.name = name;
+		this.rating = rating;
+	}
+
+	getRating() {
+		return this.rating;
+	}
+}
+
+class HorrorMovie extends Movie {	// Use extends keyword to inherit from another class
+	constructor(name, rating, classification) {
+		super(name, rating);					// Use the super keyword to call the base class constructor
+		this.classification = classification;
+	}
+
+	getClassification() {
+		return this.classification;
+	}
+}
+
+let gladiator = new Movie("Gladiator", 4);
+
+assert(gladiator instanceof Movie, "It is a instance of a Movie");
+assert(gladiator.getRating() >= 4, "Has a rating");
+assert(gladiator.name === "Gladiator", "Has a name");
+assert(!(gladiator instanceof HorrorMovie), "It is not a Horror Movie");
+assert(!("getClassification" in gladiator), "Cannot get classification");
+
+let roseMaryBaby = new HorrorMovie("Rose Mary Baby", 3, "R+");
+
+assert(roseMaryBaby instanceof HorrorMovie, "It is an HorrorMovie");
+assert(roseMaryBaby.getClassification() === "R+", "Can has own methods");
+assert(roseMaryBaby.getRating() > 1, "We can call getRating");
+assert(roseMaryBaby instanceof Movie, "It extends from Movie");
+assert(roseMaryBaby.name === "Rose Mary Baby", "Has a name");
+
+/* Summary */
+// Javascript objects are a simple collections of named properties with values, separated by commas. let object = {namedProperty: value, namedProperty2: value2, n: n}
+
+// Javascript use prototypes
+// Object have a reference to a prototype, an object to which we deleage the search for a particular property (if the object itself doesn't have the property, forming a prototype chain.
+// Define the prototype of an object using Object.setPrototypeOf
+// Prototypes are linked to constructor functions. Accessible to all objects instantiated with that function (using 'new').
+
+// To "inherit" (have access to), set the prototype of Child to a 'new' instance of Parent class (line 94)
+
+// JS properties have attributes (configurable, enumerable, writable). Defined via Object.defineProperty.
+
+// JS ES6 add support to classes with 'class' keyword. Sugar syntax, at the end it is still a prototype.
+// 'extends' keyword enable elegeant inheritance.
