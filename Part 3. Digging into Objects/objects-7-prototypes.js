@@ -252,3 +252,60 @@ assert(roseMaryBaby.name === "Rose Mary Baby", "Has a name");
 
 // JS ES6 add support to classes with 'class' keyword. Sugar syntax, at the end it is still a prototype.
 // 'extends' keyword enable elegeant inheritance.
+
+// 7.6 Exercises
+
+// 1. Prototype, the property that would be searched if the target object doesn't have the property.
+
+// 2. value of a1 = "Hi!"
+function Person() {}
+Person.prototype.talk = function() {
+	return "Hi!";
+}
+
+const randomperson = new Person();
+const a1 = randomperson.talk();
+
+// 3. value of a2 = undefined
+Person.jump = "jump";
+const randomperson2 = new Person();
+const a2 = randomperson2.jump;
+console.log(a2);
+
+// 4. First fragment created a new getFullName() function per instance (wasting memory resources). Second fragment actually creates only one function that all instnaces share! (less memory resources)
+
+// 5. naxo.constructor should point to Doggo
+function Doggo() {}
+function Catto() {}
+
+const naxo = new Doggo();
+console.log(naxo.constructor === Doggo);
+
+// 6.  randomCrow.constructor should point to Bird
+function Bird() {}
+function Crow() {}
+
+Crow.prototype = new Bird();
+
+const randomCrow = new Crow();
+assert(randomCrow.constructor === Bird);
+
+// 7. Explain why, randomCrow instanceof Bird === true. instanceof in Javascript checks if the instance is in the current prototype chain, thats why it is true; just like randomCrow instanceof Crow === true and randomCrow instanceof Object === true.
+assert(randomCrow instanceof Crow === true);		// First in the prototype chain
+assert(randomCrow instanceof Bird === true);		// Second instance in the prototype chain
+assert(randomCrow instanceof Object === true);	// Third (and last) instance in the prototype chain
+
+// 8: Tranlate to ES5 Code
+function Warrior(weapon){
+	this.weapon = weapon;
+}
+
+// Instance method: All Warrior objects have this method available
+Warrior.prototype.wield = function() {
+	return "Wilding " + this.weapon;
+}
+
+// Static method: only lives in the class Warrior)
+Warrior.duel = function(warrrior1, warrrior2) {
+	return warrrior1.wield() + " " + warrrior2.wield();
+}
