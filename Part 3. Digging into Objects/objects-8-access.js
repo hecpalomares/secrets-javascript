@@ -87,3 +87,55 @@ assert(hanzo.skillLevel === 0);										// Getter implictly called
 
 hanzo.skillLevel = 8;															// Setter implicitly called 
 assert(hanzo.skillLevel === 8);										// Getter implictly called
+
+// 8.5 Validating property values assignaments via setters
+
+function Warrior() {
+	let _skillLevel = "";
+
+	Object.defineProperty(this, "skillLevel", {
+		get: () => _skillLevel,
+		set: value => {
+			if(!Number.isInteger(value)) {		// Check wheters the passed-in valye is an integer. If not, throw an exception.
+				throw new TypeError(`Skill level should be a integer number, not "${value}"`);
+			}
+			_skillLevel = value;
+		}	
+	});
+}
+
+const samurai = new Warrior();
+samurai.skillLevel = 10;
+assert(samurai.skillLevel === 10);
+
+try {
+	samurai.skillLevel = 20;
+} catch (e) {
+	console.log(e);
+}
+
+// 8.6 Define computed properties
+
+const company = {
+	name: "Apple",
+	founder: "Steve Jobs",
+	get fullTitle() {																	// Defines a getter method by concatenation two object properties.
+		return `${this.name} founded by ${this.founder}`;
+	},
+	set fullTitle(value) {														// Defines a setter method , by splitted the value property into two segments.
+		const segments = value.split(" ");
+		this.name = segments[0];
+		this.founder = segments[1];
+	}
+}
+
+assert(company.name === "Apple");
+assert(company.founder === "Steve Jobs");
+assert(company.fullTitle === "Apple founded by Steve Jobs");
+
+company.fullTitle = "Microsoft BillGates";
+assert(company.name === "Microsoft");
+assert(company.founder === "BillGates");
+assert(company.fullTitle === "Microsoft founded by BillGates");
+
+// Useful addition to the languague that can help us deal with logging, data validation and detecting changes in values.
