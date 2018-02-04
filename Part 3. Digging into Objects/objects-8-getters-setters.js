@@ -138,4 +138,4 @@ assert(company.name === "Microsoft");
 assert(company.founder === "BillGates");
 assert(company.fullTitle === "Microsoft founded by BillGates");
 
-// Useful addition to the languague that can help us deal with logging, data validation and detecting changes in values.
+// Getters/Setters: Useful addition to the languague that can help us deal with logging, data validation and detecting changes in values.
