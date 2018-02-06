@@ -4,6 +4,7 @@ const assert = require('assert');
 // With proxies you enable the generically handle all interactions with an object.
 
 // 8.7 Creating proxies with the Proxy constructor
+
 const emperor = { name: "Louis XV" };					// target object
 
 const representative = new Proxy(emperor, {
@@ -34,3 +35,52 @@ assert(representative.nickname === "Tallyrand", "The nickname is accessible thro
 // enumerate: activated in for-in statements.
 // getPrototype/setPrototypeOf: activated for getting and setting the prototype value.
 
+// 8.9 Using proxies makes it easier to add logging to objects
+
+function makeLoggable(target) {
+	return new Proxy(target, {
+		get: (target, property) => {
+			console.log(`Reading ${property}`);
+			return target[property];
+		},
+		set: (target, property, value) => {
+			console.log(`Writing value ${value} to ${property}`);
+			target[property] = value;
+		}
+	});
+}
+
+let myDog = { name: "Doggo" };	// Create a new dog object
+myDog = makeLoggable(myDog);		// Serve the dog as a target and make it loggable
+
+assert(myDog.name === "Doggo");	// Reads from proxy object, logs the get proxy trap
+myDog.age = 7;									// Writes from proxy objevt, logs the set proxy trap
+
+// Much cleaner and easier solution to make logging objects with proxies,
+// rather than trying to set the individual logic per property getter/setter.
+
+// 8.10 Measuring the performance with proxies
+
+function isPrime(number) {
+	if(number < 2) {
+		return false;
+	}
+	for(let i = 2; i < number; i++) {
+		if(number % i === 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+isPrime = new Proxy(isPrime, {										// Writes the isPrime function to a Proxy function
+	apply: (target, thisArg, args) => {							// Provides apply trap, that will get called whenever a proxy is called as a function
+		console.time("isPrime");											// Starts timer
+		const result = target.apply(thisArg, args);		// Invokes target function
+		console.timeEnd("isPrime");										// Stops the timer
+		return result;
+	}
+});
+
+console.log(isPrime(1));

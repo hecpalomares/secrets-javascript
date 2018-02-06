@@ -63,7 +63,7 @@ assert(dogCollection.firstDoggo === "Nacho");
 dogCollection.firstDoggo = "Koggy";
 assert(dogCollection.firstDoggo === "Koggy" && dogCollection.dogs[0] === "Koggy");
 
-// 8.4 Degine getters and setters with Object.defineProperty
+// 8.4 Define getters and setters with Object.defineProperty
 
 function Ninja() {
 	let _skillLevel = 0;														// Defines 'private' variable, accessible only through closures
