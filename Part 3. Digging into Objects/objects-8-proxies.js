@@ -73,7 +73,6 @@ function isPrime(number) {
 	return true;
 }
 
-
 isPrime = new Proxy(isPrime, {										// Writes the isPrime function to a Proxy function
 	apply: (target, thisArg, args) => {							// Provides apply trap, that will get called whenever a proxy is called as a function
 		console.time("isPrime");											// Starts timer
@@ -83,4 +82,66 @@ isPrime = new Proxy(isPrime, {										// Writes the isPrime function to a Prox
 	}
 });
 
-console.log(isPrime(1));
+console.log(isPrime(17));
+
+// 8.11 Using proxies to autopopulate properties
+
+function Folder() {
+	return new Proxy({}, {
+		get:(target, property) => {
+			console.log(`Reading ${property}`);		// Logs all readings to our object
+
+			if(!(property in target)) {
+				target[property] = new Folder();		// If the accessed property doesn't exist, it is created
+			}
+
+			return target[property];
+		}
+	});
+}
+
+const rootFolder = new Folder();
+
+try {
+	rootFolder.parentDir.childDir.myFile = "randomTextFile.txt";	// When a property is acceesed, the get trap is activated, which in turn creates the property (line 95)
+} catch (e) {
+	console.log(e);
+}
+// Requesting a value of an uninitialized property triggers its creation.
+
+// 8.12 Negative arrays indexes with proxies
+
+function createNegativeArray(array) {
+	if(!Array.isArray(array)) {
+		throw new TypeError('Expected an array');	// If target object isn't an array, throw an exception
+	}
+
+	return new Proxy(array, {										// Returns a new proxy that takes the array, and use it as a target
+		get: (target, index) => {									// get trap is activated when an array index is read
+			index = +index;													// Turns a property name into a number with the unary plus operator
+			return target[index < 0 ? target.length + index : index]; 	// If the read index is a negative number, read from the back of the array. If is a positive number, access to it normally.
+		},
+		set: (target, index, val) => {						// set trap is activated when an array index is writen to
+			index = +index;
+			return target[index < 0 ? target.length + index : index] = val;
+		}
+	});
+
+}
+
+const dogs = ["Ignacio", "Thor", "Yagara", "Sussie"];
+const proxiedDogs = createNegativeArray(dogs);
+
+// Normal access to the array, normal access to the proxy
+assert(dogs[0] === "Ignacio" && dogs[1] === "Thor", dogs[2] === "Yagara", dogs[3] === "Sussie");
+assert(proxiedDogs[0] === "Ignacio" && proxiedDogs[1] === "Thor", proxiedDogs[2] === "Yagara", proxiedDogs[3] === "Sussie");
+
+// Can't use negative indexes at the normal array
+assert(typeof dogs[-1] === "undefined" && typeof dogs[-2] === "undefined", typeof dogs[-3] === "undefined");	 
+
+// We can do it through our proxy
+assert(proxiedDogs[0] === "Ignacio" && proxiedDogs[-3] === "Thor", proxiedDogs[-2] === "Yagara", proxiedDogs[-1] === "Sussie");
+
+// Modify array items from the back, but only through the proxy array
+proxiedDogs[-1] = "Rango";
+assert(proxiedDogs[-1] === "Rango");
