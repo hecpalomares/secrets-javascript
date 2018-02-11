@@ -1,6 +1,7 @@
 const assert = require('assert');
 
 // 9.1 Creating arrays
+
 const dogs = ["Nacho", "Thor", "Sussie"];	// Array literal
 const cats = new Array("Mika", "Camila");	// Array constructor
 
@@ -54,3 +55,50 @@ assert(people.length === 1);
 
 // Performance considerations. Since push and pop inserts at the end of the array. There is no need to recalculate,
 // the indexes of subsequent array items. For this reason, push and pop and considerably faster than shift and unshift.
+
+// 9.3 Incorrect way to remove an item
+
+const team = ["Fernando", "Roberto", "Alice", "Susan"];
+
+delete team[2];										// Using delete command
+
+assert(team.length === 4);				// Array still has 4 elements, only created a hole in the middle of it.
+
+assert(team[0] === "Fernando");
+assert(team[1] === "Roberto");
+assert(team[2] === undefined);
+assert(team[3] === "Susan");
+
+// 9.4 Correct way to add items
+
+const cities = ["Paris", "New York", "Milan", "Atlanta"];
+
+let removedItems = cities.splice(2, 1);	// Remove 1 element starting at index 1
+
+assert(removedItems.length === 1);			// Removed items has a length of 1
+assert(removedItems[0] === "Milan");		// Returns an array with the removed item
+assert(cities.length === 3);
+
+cities.splice(2, 1, "Rome", "Peru");		// Starting at index 2, removes one item and adds items "Rome" and "Lima"
+assert(cities.length === 4);
+
+// Iterating over Arrays
+const movies = ["Dunkirk", "Alien", "Gladiator"];
+
+// 9.4 Using a for loop
+for (let i = 0; i < movies.length; i++) {
+	assert(movies[i] !== null);
+}
+
+// 9.5 Using forEach method
+movies.forEach(movie => {
+	assert(movie !== null);
+});
+
+// 9.7 Using a map method. Constructs a new array and then iterates over the input array.
+const moviesWithDirector = [{name: "Dunkirk", director: "Ridley Scott"}, 
+														{name: "Avatar", director: "James Cameron"}, 
+														{name: "Reservoir Dogs", director: "Quentin Tarantino"}];
+
+const directors = moviesWithDirector.map(movie => movie.director);
+console.log(directors);
