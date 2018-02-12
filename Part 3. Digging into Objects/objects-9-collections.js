@@ -82,7 +82,7 @@ assert(cities.length === 3);
 cities.splice(2, 1, "Rome", "Peru");		// Starting at index 2, removes one item and adds items "Rome" and "Lima"
 assert(cities.length === 4);
 
-// Iterating over Arrays
+// [Iterating over Arrays]
 const movies = ["Dunkirk", "Alien", "Gladiator"];
 
 // 9.4 Using a for loop
@@ -100,5 +100,48 @@ const moviesWithDirector = [{name: "Dunkirk", director: "Ridley Scott"},
 														{name: "Avatar", director: "James Cameron"}, 
 														{name: "Reservoir Dogs", director: "Quentin Tarantino"}];
 
-const directors = moviesWithDirector.map(movie => movie.director);
-console.log(directors);
+const directors = moviesWithDirector.map(movie => movie.director);	// [ 'Ridley Scott', 'James Cameron', 'Quentin Tarantino' ]
+
+// [Testing Array Items]
+
+// 9.9 Testing array with every and some methods
+const drinks = [{name: "Tequila", country: "Mexico"}, 
+								{name: "Wine", country: "France"},  
+								{name: "Whisky", country: "Scotland"}, 
+								{name: "Beer"},
+								{name: "Mezcal", country: "Mexico"}];
+
+const allDrinksNamed = drinks.every(drink => "name" in drink);						// Callback function that is tested per each array item
+const allDrinksHasCountry = drinks.every(drink => "country" in drink);		// If one the cb function tested return false, stops the subsequent items (retuens false)
+
+assert(allDrinksNamed); 
+assert(!allDrinksHasCountry, "Not all drinks has the country property");	// If one cb function tested returns true, stops the subsequen items (returns true)
+
+const someDrinksHasCountry = drinks.some(drink => "country" in drink);
+assert(someDrinksHasCountry);
+
+// 9.9 Finding array items
+
+const drinkFromFrance = drinks.find(drink => {				// Find the first array of the item that satisfies a certain condition.
+	return drink.country === "France";
+});
+
+assert(drinkFromFrance.country === "France" && drinkFromFrance.name === "Wine");
+
+const drinkFromBrazil = drinks.find(drink => {			// Returns undefined if there is no match
+	return drink.country === "Brazil";
+});
+
+assert(drinkFromBrazil === undefined);
+
+const drinksFromMexico = drinks.filter(drink => {		// Filter method to find multiple items that satisfy certain condition
+	return drink.country === "Mexico";								// creates a new array with the items that satisfy the criteria.
+});
+
+assert(drinksFromMexico.length === 2);
+
+const drinkFromFranceIndex = drinks.findIndex(drink => {		// Similar to .find method, however returns the index of the first item that satigies the conidtion
+	return drink.country === "France";
+});
+
+assert(drinkFromFranceIndex === 1);
