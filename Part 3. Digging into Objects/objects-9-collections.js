@@ -105,11 +105,11 @@ const directors = moviesWithDirector.map(movie => movie.director);	// [ 'Ridley 
 // [Testing Array Items]
 
 // 9.9 Testing array with every and some methods
-const drinks = [{name: "Tequila", country: "Mexico"}, 
-								{name: "Wine", country: "France"},  
-								{name: "Whisky", country: "Scotland"}, 
-								{name: "Beer"},
-								{name: "Mezcal", country: "Mexico"}];
+const drinks = [{name: "Tequila", country: "Mexico", cost: 45}, 
+								{name: "Wine", country: "France", cost: 90},  
+								{name: "Whisky", country: "Scotland", cost: 15}, 
+								{name: "Beer", cost: 9},
+								{name: "Mezcal", country: "Mexico", cost: 28}];
 
 const allDrinksNamed = drinks.every(drink => "name" in drink);						// Callback function that is tested per each array item
 const allDrinksHasCountry = drinks.every(drink => "country" in drink);		// If one the cb function tested return false, stops the subsequent items (retuens false)
@@ -145,3 +145,30 @@ const drinkFromFranceIndex = drinks.findIndex(drink => {		// Similar to .find me
 });
 
 assert(drinkFromFranceIndex === 1);
+
+// 9.11 Sorting Array
+
+// Sorting A-Z (Ascending)
+const drinksSortedByName = drinks.sort((drink1, drink2) => {
+	return drink1.name > drink2.name;
+});
+
+// Sorting Z-A (Descending)
+const drinkSortedByCost = drinks.sort((drink1, drink2) => {
+	return drink2.cost > drink1.cost;
+});
+
+// 9.12 Agregating items with a reduce
+const drinksCost = [{name: "Tequila", amount: 3, cost: 45.50}, 
+										{name: "Wine", amount: 2, cost: 90.15},  
+										{name: "Whisky", amount: 0, cost: 15.50}, 
+										{name: "Beer", amount: 10, cost: 9.85},
+										{name: "Mezcal", amount: 2, cost: 28.25}];
+
+
+const total = drinksCost.reduce((total, drink) => {	// Using reduce to accumulate a single value from an array
+	let totalCostPerDrink = (drink.cost*drink.amount);
+	return total + totalCostPerDrink; 
+}, 0);
+
+console.log(`Total money spent was: $${total.toFixed(2)}`);
