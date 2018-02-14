@@ -172,3 +172,52 @@ const total = drinksCost.reduce((total, drink) => {	// Using reduce to accumulat
 }, 0);
 
 console.log(`Total money spent was: $${total.toFixed(2)}`);
+
+// Maps: maps a key to a specific value (dictonaries or maps)
+
+// Dont use objects as maps
+// 9.14 Objects have access to properties that weren't explicitly defined
+
+const dictonary = {
+	"es": {
+		"Good morning!": "¡Buenos días!"
+	},
+	"por": {
+		"Good morning!": "Bom dia!"
+	},
+	"ger": {
+		"Good morning!": "Guten tag!"
+	}
+};
+
+assert(dictonary.por["Good morning!"] === "Bom dia!");
+assert(typeof dictonary.por["constructor"] !== undefined);
+
+// All objects have prototypes, still have properties of the prototype objects; just like the constructor.
+// With objects, all keys ["es", "por", "ger"] are needed to be string values. They will silently coherted to it.
+
+// 9.16 Creating our first map
+
+const ninjaIslandMap = new Map(); // Map constructor to create a map
+
+const ninja1 = { name: "Hanzo" };
+const ninja2 = { name: "Shonun" };	// Defines three normal objects
+const ninja3 = { name: "Akira" };
+
+ninjaIslandMap.set(ninja1, { homeIsland: "Nakato" });		// Creates a mapping for the first two ninja objects, by using the map set method
+ninjaIslandMap.set(ninja2, { homeIsland: "Tottori" });
+
+assert(ninjaIslandMap.get(ninja1).homeIsland === "Nakato");
+assert(ninjaIslandMap.get(ninja2).homeIsland === "Tottori");		// Get the mapping for the first two ninja objects, by using the map get method
+assert(ninjaIslandMap.get(ninja3) === undefined);
+
+assert(ninjaIslandMap.size === 2);		// Check the map size
+
+assert(ninjaIslandMap.has(ninja1) && ninjaIslandMap.has(ninja2));		// Check wheter the mapping exist for a particual key, by using the map has method
+assert(!ninjaIslandMap.has(ninja3));
+
+ninjaIslandMap.delete(ninja1);
+assert(!ninjaIslandMap.has(ninja1));	// Delete the mapping, by using the map delete method
+
+ninjaIslandMap.clear();
+assert(ninjaIslandMap.size === 0);		// Delete completly the map, by using the map clear method
