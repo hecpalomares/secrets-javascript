@@ -221,3 +221,65 @@ assert(!ninjaIslandMap.has(ninja1));	// Delete the mapping, by using the map del
 
 ninjaIslandMap.clear();
 assert(ninjaIslandMap.size === 0);		// Delete completly the map, by using the map clear method
+
+// 9.17 Key equality in maps
+
+const map = new Map();
+const currentLocation = '/products';
+
+const firstLink = {currentLocation};		
+const secondLink = {currentLocation};
+
+map.set(firstLink, { description: "firstLink" });						// Adds a mapping for both links
+map.set(secondLink, { description: "secondLink" });
+
+assert(map.get(firstLink).description === "firstLink");
+assert(map.get(secondLink).description === "secondLink");		// Each link has its own mapping even thought they point to the same page.
+assert(map.size === 2);
+
+// 9.18 Iterating over maps
+
+const directory = new Map();
+
+directory.set("Andrew", "+555 1234 5678");
+directory.set("Tom", "+555 3453 4562");
+directory.set("Jimmy", "+555 1232 1112");
+
+// iterates over each item in a dictonary using the for...of loop. Each item is a two-itwm array: a key and a value
+for(let item of directory) {
+	assert(item[0] !== null, "Key:" + item[0]);
+	assert(item[1] !== null, "Value:" + item[1]);
+}
+
+// iterate over keys using the built-in method keys method
+for(let key of directory.keys()) {
+	assert(key !== null, "Key:" + key);
+	assert(dictonary.get(key) !== null, "Value:" + directory.get(key));	
+}
+
+// iterate over values using the built-in values method
+for(let item of directory) {
+	assert(value !== null, "Value:" + value);
+}
+
+// Best way is using the for..of loop (line 249). Each iteration is a two item array, where first item is a key and second item is a value.
+
+// 9.18 Mimicking sets with objects
+
+function Set() {
+	this.data = {};			// Object to store items
+	this.length = 0;
+}
+
+// Check whether the item is already stored
+Set.prototype.has = function(item) {
+	return typeof this.data[item] !== "undefined";	
+}
+
+// Adds an item only if it isn´t already contained in the set
+Set.property.add = function(item) {
+	if(!this.has(item)) {
+		this.data[item] = true;
+		this.length;
+	}
+}
