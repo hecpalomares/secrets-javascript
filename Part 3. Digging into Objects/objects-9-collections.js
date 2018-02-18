@@ -254,11 +254,11 @@ for(let item of directory) {
 // iterate over keys using the built-in method keys method
 for(let key of directory.keys()) {
 	assert(key !== null, "Key:" + key);
-	assert(dictonary.get(key) !== null, "Value:" + directory.get(key));	
+	assert(directory.get(key) !== null, "Value:" + directory.get(key));	
 }
 
 // iterate over values using the built-in values method
-for(let item of directory) {
+for(let value of directory) {
 	assert(value !== null, "Value:" + value);
 }
 
@@ -266,20 +266,55 @@ for(let item of directory) {
 
 // 9.18 Mimicking sets with objects
 
-function Set() {
+function FakeSet() {
 	this.data = {};			// Object to store items
 	this.length = 0;
 }
 
 // Check whether the item is already stored
-Set.prototype.has = function(item) {
+FakeSet.prototype.has = function(item) {
 	return typeof this.data[item] !== "undefined";	
 }
 
-// Adds an item only if it isn´t already contained in the set
-Set.property.add = function(item) {
+// Adds an item only if it its already contained in the FakeSet
+FakeSet.prototype.add = function(item) {
 	if(!this.has(item)) {
 		this.data[item] = true;
-		this.length;
+		this.length++;
 	}
 }
+
+// Remove an item only if its already contained in the FakeSet
+FakeSet.prototype.remove = function(item) {
+	if(this.has(item)) {
+		delete this.data[item];
+		this.length--;
+	}
+}
+
+const fakeCountrySet = new FakeSet();
+fakeCountrySet.add("France");
+fakeCountrySet.add("Italy");
+fakeCountrySet.add("France");
+
+assert(fakeCountrySet.has("France") && fakeCountrySet.has("Italy") && fakeCountrySet.length === 2);	
+
+fakeCountrySet.remove("France");
+
+assert(!fakeCountrySet.has("France") && fakeCountrySet.has("Italy") && fakeCountrySet.length === 1);
+
+// Simple example of how sets can be mimicked with objects. Object 'data' keeps track of our items. Include methods has, add and remove similar to Set().
+// Bad mimick, since objects can't store objects as keys. Only numbers and strings.
+
+// 9.3.1 Creating a set
+let genresMusic = new Set(["Rock", "Classical", "Electronic", "Classical"]); // Set constructor can take an array of items to initialize.
+
+assert(genresMusic.has("Classical"));
+assert(genresMusic.size === 3);		// Discards any duplicate value (classical!
+
+genresMusic.add("Pop");
+
+assert(genresMusic.has("Pop"));
+assert(genresMusic.size === 4);		// Size is increased
+
+// 9.3.2 Union of Sets
