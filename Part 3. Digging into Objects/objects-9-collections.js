@@ -306,7 +306,7 @@ assert(!fakeCountrySet.has("France") && fakeCountrySet.has("Italy") && fakeCount
 // Simple example of how sets can be mimicked with objects. Object 'data' keeps track of our items. Include methods has, add and remove similar to Set().
 // Bad mimick, since objects can't store objects as keys. Only numbers and strings.
 
-// 9.3.1 Creating a set
+// 9.20 Creating a set
 let genresMusic = new Set(["Rock", "Classical", "Electronic", "Classical"]); // Set constructor can take an array of items to initialize.
 
 assert(genresMusic.has("Classical"));
@@ -317,4 +317,36 @@ genresMusic.add("Pop");
 assert(genresMusic.has("Pop"));
 assert(genresMusic.size === 4);		// Size is increased
 
-// 9.3.2 Union of Sets
+// 9.21 Union of Sets: Creates a new Set that contains all elemnts of Set A and Set B
+
+const colorsRGB = ["Red", "Green", "Blue"];
+const colorsPrimary = ["Yellow", "Blue", "Red"];
+
+const colorsUnion = new Set([...colorsRGB, ...colorsPrimary]);	// Merge them into one array by spreading the array with the ... operator
+
+
+assert(colorsUnion.has("Red") && colorsUnion.has("Green") && colorsUnion.has("Blue") && colorsUnion.has("Yellow"));
+assert(colorsUnion.size === 4);	// Removed the Blue and Red entries
+
+// 9.22 Intersections of Sets: Creates a new Set that matches set A and set B
+
+const goodTeams = new Set(["Real Madrid", "Barcelona", "Atletico Madrid", "Sevilla", "Valencia"]);
+const averageTeams = new Set(["Sevilla", "Real Sociedad", "Valencia", "Real Betis"]);
+
+// Use spread operator to turn the set into an array so we can use the filter() method to keep the goodTeams contained into the averageTeam set.
+const midTeams = new Set(
+	[...goodTeams].filter(goodTeam => averageTeams.has(goodTeam))	
+);
+
+assert(midTeams.size === 2);
+assert(midTeams.has("Sevilla") && midTeams.has("Valencia"));
+
+// 9.23 Difference of Sets. Creates a new Set that contains all elements in set A that are not in Set B
+
+// Use spread operator to turn the set into an array so we can use the filter() method to return only the one exclusive for Set A
+const eliteTeams = new Set(
+	[...goodTeams].filter(goodTeam => !averageTeams.has(goodTeam))	
+);
+
+assert(eliteTeams.size === 3);
+assert(eliteTeams.has("Real Madrid") && eliteTeams.has("Barcelona") && eliteTeams.has("Atletico Madrid"));
