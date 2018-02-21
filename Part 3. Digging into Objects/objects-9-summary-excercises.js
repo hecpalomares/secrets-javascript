@@ -50,3 +50,14 @@ const thirdReduce = quarterbacks.reduce((aggregate, qb) => aggregate + qb.age, 0
 // Ex 5
 const fourthSome = quarterbacks.some(qb => qb.age % 2 === 0);
 const fifthSome = quarterbacks.every(qb => qb.age % 2 === 0);
+
+// Ex 6
+const bookshelfMap = new Map();
+const book1 = { name: "Creativity Inc" };
+const book2 = { name: "Principles" };
+const book3 = { name: "Meditations" };
+
+const author1 = { author: "Ed Catmull" };
+const author2 = { author: "Ray Dalio" };
+const author3 = { author: "Marcus Aurelis" };
+
