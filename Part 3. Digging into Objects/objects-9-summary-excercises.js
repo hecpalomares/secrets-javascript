@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 /* Summary Chapter 9*/
 
 /*Arrays*/
@@ -61,3 +63,19 @@ const author1 = { author: "Ed Catmull" };
 const author2 = { author: "Ray Dalio" };
 const author3 = { author: "Marcus Aurelis" };
 
+bookshelfMap.set(book1, author1);
+bookshelfMap.set(book2, author2);
+bookshelfMap.set(book2, author3);
+
+assert(bookshelfMap.size === 2);
+assert(bookshelfMap.has(book1));
+assert(!bookshelfMap.has(book3));
+
+// Ex 7
+const spainTeams = new Set(["Real Madrid", "Barcelona", "Atletico Madrid", "Valencia"]);
+assert(spainTeams.size === 4);
+
+spainTeams.add("Real Betis");
+assert(spainTeams.size === 5);
+
+assert(spainTeams.has("Real Betis") && spainTeams.has("Valencia"));
