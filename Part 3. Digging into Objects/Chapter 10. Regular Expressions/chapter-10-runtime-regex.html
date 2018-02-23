@@ -11,6 +11,25 @@
 		<div></div>
 		<span class="classical piano mozart"></span>
 		<script>
+			function findClassElements(className, type) {
+				const elems = document.getElementsByTagName(type || "*");
+
+				// Using new RegExp constructor since we don't know in advance the search.
+				const regex = new RegExp("(^|\\s)" + className + "(\\s|$)");
+
+				const results = [];
+				for (let i = 0, length = elems.length; i < length; i++) {
+					if(regex.test(elems[i].className)) {
+						results.push(elems[i]);
+					}
+				}  
+				return results;
+			}
+
+			console.log(findClassElements("piano", "div").length === 2);
+			console.log(findClassElements("piano", "span").length === 1);
+			console.log(findClassElements("classical").length === 3);
+			
 		</script>
 	</body>
 </html>
