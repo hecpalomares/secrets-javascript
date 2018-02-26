@@ -77,3 +77,20 @@ module.exports = {													// Modifies the module.exports property to specif
 	}																									
 };
 */
+
+// ES6 Modules. Simple syntax as CommonJS. Provide support for asynchronous module loading.
+
+// 11.7 Importing from the tree.js and music.js (named exports)
+import {sayHiToTree} from "tree.js";
+import {playingSomeMusic, verb} from "music.js";
+
+assert(verb === "Playing", "Accessing a imported variable");
+assert(sayHiToTree() === "Hi Oak", "Acessing a imported function");
+assert(typeof message === "undefined", "We can't access not-exported variables");
+
+// 11.8 Importing all named exports
+import * as treeModule from "tree.js";			// Uses the * notation, to import all
+
+assert(treeModule.message === "Hi");
+assert(treeModule.sayHiToTree === "Hi Oak!");
+assert(treeModule.tree === "undefined", "Still not accessible not-exported identifiers");

@@ -1,10 +1,10 @@
 const assert = require('assert');
 
 /* Core Concepts */
-// Closure: Allow a functiosn to access and manipulate variables that are external to that function.
-// Scope: Visibility of identifiers in certain parts of the program.
+// Closure: Allow a function to access and manipulate variables that are external to that function.
+// Scope: The visibility of the identifiers in certain parts of the program.
 
-// Example 5.1: Simple closure. Declared in global scope both varaible and function, global scope nevers go away.
+// Example 5.1: Simple closure. Declared in global scope both variable and function, global scope nevers go away.
 let outerValue = "tree";
 
 function outerFunction() {
@@ -28,7 +28,7 @@ function outerFunction2() {
 outerFunction2();
 
 // Example 5.2: Hoisting, register in lexical enviroment (global scope) the variables and functions
-assert(typeof func === "function", "Function declarations are hoisted");
+assert(typeof functionDeclaration === "function", "Function declarations are hoisted");
 
 let myFuncExpr = function(){}
 let myArrowFunc = (x) => x;
@@ -36,7 +36,7 @@ let myArrowFunc = (x) => x;
 assert(typeof myFuncExpr === "function", "Function Expressions are not hoisted");
 assert(typeof myArrowFunc === "function", "Arrow functions are not hoisted");
 
-function func(){}
+function functionDeclaration(){}
 
 // Example 5.3: Closure, to mimicking private variables.
 function Tree() {
