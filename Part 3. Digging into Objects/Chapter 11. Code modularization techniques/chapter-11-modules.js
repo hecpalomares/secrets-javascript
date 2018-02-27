@@ -94,3 +94,13 @@ import * as treeModule from "tree.js";			// Uses the * notation, to import all
 assert(treeModule.message === "Hi");
 assert(treeModule.sayHiToTree === "Hi Oak!");
 assert(treeModule.tree === "undefined", "Still not accessible not-exported identifiers");
+
+// 11.10 Importing a default export
+import ImportedVehicle from "Vehicle.js";					// No need for braces for default exports, we can still use an alias
+import {compareVehicles} from "Vehicle.js";				// Importing named exports
+
+const v1 = new ImportedVehicle("Ford");
+const v2 = new ImportedVehicle("Nissan");
+
+assert(v1 !== undefined && v2 !== undefined);			// Access  the default exports
+assert(!compareVehicles(v1, v2));									// Access the named exports
