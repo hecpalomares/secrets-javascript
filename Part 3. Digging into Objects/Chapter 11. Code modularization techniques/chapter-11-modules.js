@@ -104,3 +104,20 @@ const v2 = new ImportedVehicle("Nissan");
 
 assert(v1 !== undefined && v2 !== undefined);			// Access  the default exports
 assert(!compareVehicles(v1, v2));									// Access the named exports
+
+// Summary ES6 module syntax
+export const country = "Mexico";												// Exports a variable
+export function compareCountries() {}										// Exports a function
+export class Animal() {}																// Exports a class
+
+export default class Dogs() {}													// Exports the default class export
+export default function compareAnimals() {}							// Exports the default function export
+
+export {team, game};																		// Export existing variables
+export {team as footballTeam, game as gameSoccer};			// Export variables through new names
+
+import Dog from "Dog.js";																// Import a default export
+import {bark, chaseTail} from "Dogs.js"									// Import named exports
+
+import * as Dog from "Dogs.js";													// Import all named exports from a module
+import { barking as barkingDog } deom "Dogs.js";				// Import all export throught a new name
