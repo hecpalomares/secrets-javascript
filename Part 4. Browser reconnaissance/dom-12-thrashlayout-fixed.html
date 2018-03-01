@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Layout thrashing fixed</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div id="dog">Dogo</div>
+		<div id="cat">Catterino</div>
+		<div id="fish">Pescado</div>
+		<script>
+			// Fetch element from the DOM
+			const dog = document.getElementById("dog");
+			const cat = document.getElementById("cat");
+			const fish = document.getElementById("fish");
+
+			
+			const dogWidth = dog.clientWidth;
+			const catWidth = cat.clientWidth;
+			const fishWidth = fish.clientWidth;
+
+			// By simypling changing the order of the operations all writes to layout properties together.
+			dog.style.width = dogWidth / 2 + "px";
+			cat.style.width = catWidth / 2 + "px";
+			fish.style.width = fishWidth / 2 + "px";
+
+			// Side note of React's Virtual DOM: All modifications are at Virtual DOM (set of Javascript Objects that mimic the real DOM). At the appriopiate time, React uses the Virtual DOM to know what changes need to be made at the DOM. Batching the DOM updates increase the performance significatly.
+
+		</script>
+	</body>
+</html>

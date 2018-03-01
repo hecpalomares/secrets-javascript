@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Layout thrashing</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div id="dog">Dogo</div>
+		<div id="cat">Catterino</div>
+		<div id="fish">Pescado</div>
+		<script>
+			// Layout thrashing: Series of consecutives (unnecessary) reads and writes to DOM, in the process not allowing the browser to perform layout optimizations. Modifying the DOM, browser has to recalculate the layout before any layout information is read. Recalculating the layout is expensive.
+			
+			// Fetch elements from the DOM
+			const dog = document.getElementById("dog");
+			const cat = document.getElementById("cat");
+			const fish = document.getElementById("fish");
+
+			// Perform a series of consecutives reads and writes (alternate).
+			const dogWidth = dog.clientWidth;
+			dog.style.width = dogWidth / 2 + "px";
+
+			const catWidth = cat.clientWidth;
+			cat.style.width = catWidth / 2 + "px";
+
+			const fishWidth = fish.clientWidth;
+			fish.style.width = fishWidth / 2 + "px";
+		</script>
+	</body>
+</html>

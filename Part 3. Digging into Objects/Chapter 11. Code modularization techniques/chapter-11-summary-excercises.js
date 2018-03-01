@@ -21,3 +21,6 @@
 // Import identiefiers from other moduels via the 'import' keyword.
 // single 'default' export, represent whole moudle through a single export.
 // Both 'export' and 'import' can be renamed via the 'as' keyword.
+
+// 1. Mechanism enables private module variables in the module pattern? -> Closures
+
