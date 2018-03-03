@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Event Loop with one task queue</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<button id="firstButton">First Button</button>
+		<button id="secondButton">Second Button</button>
+		<script>
+			const firstButton = document.getElementById("firstButton");
+			const secondButton = document.getElementById("secondButton");
+
+			firstButton.addEventListener("click", function firstHandler() {
+				Promise.resolve().then(() => {
+					setTimeout(function(){ 
+						let x = Date.now();
+						console.log(x); 
+						/* Code running for 4ms */ 
+					}, 4);
+				});
+
+				/* Code running for 8ms */ 
+
+			});
+
+			secondButton.addEventListener("click", function firstHandler() {
+				/* Code running for 5ms */ 
+			});
+
+			(function () {
+				/* Code running for 15ms */
+			});
+
+			// Promise handlers are called asynchronosly. Creates a new microtask and pust it onto microtask queue.
+
+		</script>
+	</body>
+</html>
