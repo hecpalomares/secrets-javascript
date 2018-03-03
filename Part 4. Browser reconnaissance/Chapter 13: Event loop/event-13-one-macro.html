@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Event Loop with one task queue</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<button id="firstButton">First Button</button>
+		<button id="secondButton">Second Button</button>
+		<script>
+			const firstButton = document.getElementById("firstButton");
+			const secondButton = document.getElementById("secondButton");
+
+			firstButton.addEventListener("click", function firstHandler() {
+				/* Code running for 8ms */
+			});
+
+			secondButton.addEventListener("click", function firstHandler() {
+				/* Code running for 5ms */ 
+			});
+
+			(function () {
+				/* Code running for 15ms */
+			});
+
+			// JS is a single threaded application. Events are putted on a task queue since tasks are not interrumped by other tasks and wait for execution.
+			// In this case if we run our the three tasks on a row, the code will execute by 15ms (mainline) -> 8ms (first button) -> 5ms (second button).
+
+		</script>
+	</body>
+</html>
