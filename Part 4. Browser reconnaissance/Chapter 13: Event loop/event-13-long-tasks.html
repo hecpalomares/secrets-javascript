@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Long Running Task</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<table><tbody></tbody></table>
+		<script>
+			const tbody = document.querySelector("tbody");
+			// Task that blocks rendering until 200,000 nodes had been created
+			for(let i = 0; i < 20000; i++) {
+				const tr = document.createElement("tr");
+				for(let t = 0; t < 10; t++) {
+					const td = document.createElement("td");
+					td.appendChild(document.createTextNode(i + "," + t));
+					tr.appendChild(td);
+				}
+				tbody.appendChild(tr);
+			}
+		</script>
+	</body>
+</html>

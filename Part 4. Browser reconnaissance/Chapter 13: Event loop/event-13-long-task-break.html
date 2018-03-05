@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Long Running Task Breakup</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<table><tbody></tbody></table>
+		<script>
+			const table = document.getElementsByTagName("tbody")[0];
+			const rowCount = 20000;
+			const diveInto = 10;
+			const chunkSize = rowCount/diveInto;
+			let iteration = 0;
+			setTimeout(function generateRows() {
+				const base = chunkSize * iteration;			// Computes where was the last iteration
+				for(let i = 0; i < chunkSize; i++) {
+				const tr = document.createElement("tr");
+				for(let t = 0; t < 10; t++) {
+					const td = document.createElement("td");
+					td.appendChild(document.createTextNode((i + base) + "," + t + "," + iteration));
+					tr.appendChild(td);
+				}
+				table.appendChild(tr);
+			}
+			
+			iteration++;
+			
+			if(iteration < diveInto) {							// Schedules the next phase
+					setTimeout(generateRows, 0);
+			}
+
+			}, 0);	// Set time-out delay to indicate to execute "asap", but after UI has been updated.
+
+			// Replaced one big render of 200,000, into 10 renders (one per iteration). Avoiding to block the UI.
+
+		</script>
+	</body>
+</html>
