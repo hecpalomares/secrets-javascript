@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Event Loop with one task queue</title>
+		<meta charset="utf-8">
+	</head>
+	<style>
+		#outerContainer {
+			width: 150px;
+			height: 150px;
+			background-color: blue;
+		}
+		#innerContainer {
+			width: 75px;
+			height: 75px;
+			background-color: red;
+		}
+	</style>
+	<body>
+		<div id="outerContainer">
+			<div id="innerContainer"></div>
+		</div>
+		<script>
+		function bubbleDefault() {
+			const outerContainer = document.getElementById("outerContainer");
+			const innerContainer = document.getElementById("innerContainer");
+
+			outerContainer.addEventListener("click", () => {
+				console.log("outer container click");
+			});
+
+			innerContainer.addEventListener("click", () => {
+				console.log("inner container click");
+			});
+
+			document.addEventListener("click", () => {
+				console.log("document click");
+			});
+
+			// Bubble event: Event is captured at the element and bubbles to the top element. (standard per default, Microsoft won).
+			// Clicking will go innerContainer -> outerContainer -> document
+
+		}
+	
+		//bubbleDefault();		
+
+		function mixedBubbleAndCapture() {
+			const outerContainer = document.getElementById("outerContainer");
+			const innerContainer = document.getElementById("innerContainer");
+
+			outerContainer.addEventListener("click", () => {				// Passing true as the third argument enables capturing
+				console.log("outer container click");
+			}, true);
+
+			innerContainer.addEventListener("click", () => {				// Passing in false enables bubbling
+				console.log("inner container click");
+			}, false);
+
+			document.addEventListener("click", () => {							// Passing nothing (default), enables bubbling
+				console.log("document click");
+			});
+
+			// Capture event: Event is captured at the top of the element and trickled down to the target element. (achievable via false as third parameter, Netscape lost).
+			// Event trickles from the top, executing all handlers it found in capturing mode. 
+			// When the target element is reached, the event bubbles up to the top. Executing all events in bubble mode. 
+			// Clicking order goes outerContainer -> inner container -> document container
+
+		}
+
+		// mixedBubbleAndCapture();
+
+		function thisVsEventTarget() {
+			const outerContainer = document.getElementById("outerContainer");
+			const innerContainer = document.getElementById("innerContainer");
+
+			innerContainer.addEventListener("click", function(e) {
+				console.log(this === innerContainer, "this equals to innerContainer");
+				console.log(e.target === innerContainer, "e.target also equals innerContainer");
+			});
+
+			outerContainer.addEventListener("click", function (e) {
+				console.log(this === outerContainer, "this equals to outerContainer");
+				console.log(e.target === innerContainer, "e.target is equal to the origin of the event, in this case innerContainer");
+			});
+		}
+
+		thisVsEventTarget();
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Event Loop with one task queue</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<button id="firstButton">First Button</button>
+		<script>
+			const myButton = document.getElementById("firstButton");
+			myButton.addEventListener("click", function myHandler(e) {
+				console.log(event.target === myButton, "Target of the event is myButton");
+				console.log(this === myButton, "Within handler function, this refers to the element that thas the registered handler");
+			});
+		</script>
+	</body>
+</html>
