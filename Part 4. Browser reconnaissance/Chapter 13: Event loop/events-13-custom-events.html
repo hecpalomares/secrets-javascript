@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Custom Events</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<style>
+	body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		flex-direction: column;
+	}
+	#spinner { 
+		display: none; 
+		transform: scale(2);
+		margin-top: 32px;
+	}
+	</style>
+	<body>
+		<button type="button" id="clickMe">Start</button>				<!-- Button simulating Ajax Request -->
+		<img src="ajax-loader.gif" alt="" id="spinner" />
+		<script>
+			
+			function triggerEvent(target, eventType, eventDetail) {	
+				const event = new CustomEvent(eventType, {					// Use CustomEvent constructor
+					detail: eventDetail																// Pass information of the event through the detail property
+				});
+				target.dispatchEvent(event);												// Use the built-in method dispatchEvent to send the event to the specified element
+			}
+
+			function performAjaxOperation() {
+				triggerEvent(document, 'ajax-start', { url: "my-url"});
+				setTimeout(() => {
+					triggerEvent(document, 'ajax-complete', {statusCode: 500});
+				}, 5000);
+			}
+
+			const button = document.getElementById('clickMe');		// When button is clicked the Ajax operation is started.
+			button.addEventListener('click', () => {						
+				performAjaxOperation();															// Mimics our Ajax request with a timer. Start of execution triggers ajax-start event.
+			});																										// At the end of the execution triggers ajax-complete event. Passes any additional event data.
+
+			document.addEventListener('ajax-start', e => {				// Handle ajax-stat event
+				document.getElementById('spinner').style.display = "inline-block";
+				console.log(e.detail.url === "my-url");							// Access to additional data (line 34)
+			});
+
+			document.addEventListener('ajax-complete', e => {			// Handle ajax-complete event
+				document.getElementById('spinner').style.display = "none";
+				console.log(e.detail.statusCode === 500);						// Access to additional data (line 36)
+			});
+
+		</script>
+	</body>
+</html>
