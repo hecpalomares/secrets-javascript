@@ -42,7 +42,14 @@
 Summary: 
 * HTML code is received by the browser as a blueprint to create the DOM (Document Object Model).
 * JS to modify DOM and bring dynamic behaivor to web applications.
-* Execution of web side applications occurs on two phases:
-1. Page Building: HTML procesed to make the DOM. Global JS is executed.
-2. Event Handling: One at a time, order in the generated (event queue). 
+
+1. Execution of web side applications occurs on two phases:
+A. Page Building: HTML procesed to make the DOM. Global JS is executed (mainline JS).
+B. Event Handling: One at a time, order in the generated (event queue). 
+
+2. addEventListener > register an event handler, enable register many events to a single element.
+
+3. Events is a single-threaded execution model, events are processed one at a time.
+
+4. Events are proccessed in the order they were generated, first-in -> first-out
 -->

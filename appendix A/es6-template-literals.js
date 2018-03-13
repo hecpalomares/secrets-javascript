@@ -1,4 +1,4 @@
-// Make manipulating strings much easier, enabling string interpolation and multiline strings.
+// Template Strings: Make manipulating strings much easier, enabling string interpolation and multiline strings.
 
 //  A.1 Template Strings
 const me = {

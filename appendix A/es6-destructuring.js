@@ -1,8 +1,8 @@
 const assert = require('assert');
 
-// Allows to easy extract data from objects and arrays by using patterns.
+// Destructuring: Allows to easy extract data from objects and arrays by using patterns.
 
-// A.3 Destucturing objects
+// A.3 Destructuring objects
 const me = {name: "Hector", sport: "Football", position: "left-midfielder"};
 
 // Old way, explicitly assign each object property to a variable.
