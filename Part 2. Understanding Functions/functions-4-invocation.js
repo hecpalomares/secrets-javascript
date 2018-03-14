@@ -176,3 +176,73 @@ function sumRestReduce(...numbers) {
 
 assert(sumRestReduce(1, 2, 3, 4) === 10, "Adding four numbers should be 10");
 assert(sumRestReduce(1, 2) === 3, "Adding two numbers should be 3");
+
+// Ex 3.
+function whoIamThree() {
+	"use strict";
+	return this;
+}
+
+function whoIamThreeTwo() {
+	return this;
+}
+
+// assert(whoIamThree() !== window);
+// assert(whoIamThreeTwo() === window);
+
+// The value of the 'this' parameter on line 183 returns as undefined since is running on strict mode.
+// The value of the 'this' parameter on line 187 returns as window, returning the global object
+
+// Ex 4. 
+let myDog1 = {
+	whoAmI() {
+		return this;
+	}
+};
+
+let myDog2 = {
+	whoAmI: myDog1.whoAmI
+}
+
+let identify = myDog2.whoAmI;
+
+assert(myDog1.whoAmI() === myDog1);		// Called as a method of myDog1
+assert(myDog2.whoAmI() === myDog2);		// Called as a method of myDog2
+
+assert(identify() !== "window");			// identify calls the function as a function refering to the object window
+assert(myDog1.whoAmI.call(myDog2) === myDog2);		// Using call to supply the execution context
+
+// Ex 5. 
+function Team() {
+	this.whoAmI = () => this;
+}
+
+let sevilla = new Team();
+let betis = {
+	whoAmI: sevilla.whoAmI;
+};
+
+// whoAmI is an arrow function inherits the function context from the context in which was created.
+// since it was created at the construction of sevilla it will always point to sevilla
+assert(sevilla.whoAmI === sevilla);		
+
+// 'this' will always point to sevilla
+assert(betis.whoAmI !== betis);																			
+
+// Ex 6.
+function Ninja() {
+	this.whoAmI = function() {
+		return this;
+	}.bind(this);
+}
+
+let ninja1 = new Ninja();
+let ninja2 = {
+	whoAmI: ninja1.whoAmI;
+};
+
+// the function assigned to whoAmI is a function bound to ninja1 (the value of this when the constructor is invoked).
+assert(ninja1.whoAmI() === ninja1);		
+
+// 'this' in whoAmI alwatys refers to ninja1 since it is a bound function
+assert(ninja2.whoAmI() !== ninja2);
