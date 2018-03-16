@@ -242,7 +242,7 @@ assert(roseMaryBaby.name === "Rose Mary Baby", "Has a name");
 // Javascript objects are a simple collections of named properties with values, separated by commas. let object = {namedProperty: value, namedProperty2: value2, n: n}
 
 // Javascript use prototypes
-// Object have a reference to a prototype, an object to which we deleage the search for a particular property (if the object itself doesn't have the property, forming a prototype chain.
+// Object have a reference to a prototype, an object to which we deleage the search for a particular property (if the object itself doesn't have the property, therefore forming a prototype chain with other objects.
 // Define the prototype of an object using Object.setPrototypeOf
 // Prototypes are linked to constructor functions. Accessible to all objects instantiated with that function (using 'new').
 
@@ -267,12 +267,14 @@ const randomperson = new Person();
 const a1 = randomperson.talk();
 
 // 3. value of a2 = undefined
-Person.jump = "jump";
+// The 'action' property is defined on the constructor, isn't acessible through the 'randomPerson2' object.
+Person.action = "jump";
 const randomperson2 = new Person();
-const a2 = randomperson2.jump;
+const a2 = randomperson2.action;
 console.log(a2);
 
-// 4. First fragment created a new getFullName() function per instance (wasting memory resources). Second fragment actually creates only one function that all instnaces share! (less memory resources)
+// 4. First fragment defined directly on the instance of Person constructor. Each object created via 'new' gets its own getFullName() method (more memory resources)
+//		Second fragment defined directly on the Person prototype. Defines only one method shares across all further instances! (less memory resources).
 
 // 5. naxo.constructor should point to Doggo
 function Doggo() {}

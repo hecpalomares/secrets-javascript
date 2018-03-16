@@ -190,8 +190,8 @@ function whoIamThreeTwo() {
 // assert(whoIamThree() !== window);
 // assert(whoIamThreeTwo() === window);
 
-// The value of the 'this' parameter on line 183 returns as undefined since is running on strict mode.
-// The value of the 'this' parameter on line 187 returns as window, returning the global object
+// The value of the 'this' parameter on line 183 returns as undefined since is running on strict mode
+// The value of the 'this' parameter on line 187 returns as window, 'this' on functions returns to the global object
 
 // Ex 4. 
 let myDog1 = {
@@ -222,7 +222,7 @@ let betis = {
 	whoAmI: sevilla.whoAmI;
 };
 
-// whoAmI is an arrow function inherits the function context from the context in which was created.
+// whoAmI is an arrow function inherits the function context from the context in which was created
 // since it was created at the construction of sevilla it will always point to sevilla
 assert(sevilla.whoAmI === sevilla);		
 
@@ -241,7 +241,7 @@ let ninja2 = {
 	whoAmI: ninja1.whoAmI;
 };
 
-// the function assigned to whoAmI is a function bound to ninja1 (the value of this when the constructor is invoked).
+// the function assigned to whoAmI is a function bound to ninja1 (the value of this when the constructor is invoked)
 assert(ninja1.whoAmI() === ninja1);		
 
 // 'this' in whoAmI alwatys refers to ninja1 since it is a bound function

@@ -61,24 +61,25 @@ let a1, a2, a3, a4, a5;
 console.log("Value a1 = ", a1 = evenGen.next().value);					// 2
 console.log("Value a2 = ", a2 = evenGen.next().value); 					// 4
 console.log("Value a3 = ", a3 = EvenGenerator().next().value);	// 2 (This is a new generator)!
-console.log("Value a4 = ", a4 = evenGen.next().value);					// 6
-console.log("Value a5 = ", a5 = EvenGenerator().next().value);	// 2 (This is a new generator)!
+console.log("Value a4 = ", a4 = evenGen.next().value);					// 6 (Go back to the first generator)!
+console.log("Value a5 = ", a5 = EvenGenerator().next().value);	// 2 (This is a new generator)a!
 
 // 2
 function* TreeGenerator() {
 	yield "Pine";
-	yield "Oak";
+	return "Oak";
 	yield "Cherry Blossom";
 }
 
 let trees = [];
 
-for(let tree of TreeGenerator()) {	// for...of in generators yields every value of the generator
+for(let tree of TreeGenerator()) {
 	trees.push(tree);
 }
 
-console.log(trees);
-
+console.log(trees);			// Only "Pine", for...of loop iterates over a generator until the generator is done. 
+												// This happens when it finish the 'yields', or when a returns is encountered.
+												
 // 3
 function *Gen(val) {
 	val = yield val * 2;
