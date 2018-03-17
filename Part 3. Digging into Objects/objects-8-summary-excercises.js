@@ -33,6 +33,9 @@ const me = new Programmer();
 assert(me._computer === undefined);		// Trying to access the private variable directly returns undefined
 assert(me.computer === "iMac");				// Trying to access the variable _computer with getter (is accessible through closures)
 
+// Closures allows getters to access private object variables. At (line 27) creates a closures on _computer private variable
+// defined in the constructor function keeping the private variable alive.
+
 // Example 3
 const king = { name: "Louis XV", country: "France" };
 const traitor = new Proxy(king, {
@@ -43,15 +46,16 @@ const traitor = new Proxy(king, {
 	}
 });
 
-assert(king.country === "France");
-assert(traitor.country === "England");
+assert(king.country === "France");					// This passes since king has a property country
+assert(traitor.country === "England");			// This passes since we access the property through the proxy activating a get trap
 
-traitor.country = "Italy";									// The proxy changed the king.country property value to Italy
+traitor.country = "Italy";									// The proxy changed the king.country property value to Italy, becouse it doesn't own a set trap
+																						// the action is carried to to the target 'king' (line 41)
 
 // assert(king.country === "France");				// The king now has "Italy" as value
-assert(traitor.country === "England");			// The traitor still returns "England" as the method
+assert(traitor.country === "England");			// The traitor (proxy) always returns "England", as a method regarding the value stored on king object
 
-// Exmaple 4
+// Example 4
 const general = { name: "Patton", country: "US", armySize: 100 };
 
 const proxyGen = new Proxy(general, {
@@ -67,11 +71,12 @@ const proxyGen = new Proxy(general, {
 	}
 });
 
-assert(general.armySize === 100);
-assert(proxyGen.armySize === 100);
+assert(general.armySize === 100);				// True. At general object, the property 'armySize' is 100
+assert(proxyGen.armySize === 100);			// True. Since there is no get trap, the value of the target (general) armysize is returned
 
-proxyGen.armySize = "large";
-assert(general.armySize === "large");
+proxyGen.armySize = "large";						
+assert(general.armySize === "large");		// False. The setter checks that we are setting a number. 
+																				// Since we are setting a string it doesn't set the value of the string.
 
-general.armySize = "large";
-assert(general.armySize === "large");
+general.armySize = "large";							
+assert(general.armySize === "large");		// True. Since we are overriding directly on the property of the object, bypassing the proxy.

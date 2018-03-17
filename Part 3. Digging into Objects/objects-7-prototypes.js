@@ -292,6 +292,9 @@ Crow.prototype = new Bird();
 const randomCrow = new Crow();
 assert(randomCrow.constructor === Bird);
 
+// We override the built-in Crow.prototype with a new Bird object.
+
+
 // 7. Explain why, randomCrow instanceof Bird === true. instanceof in Javascript checks if the instance is in the current prototype chain, thats why it is true; just like randomCrow instanceof Crow === true and randomCrow instanceof Object === true.
 assert(randomCrow instanceof Crow === true);		// First in the prototype chain
 assert(randomCrow instanceof Bird === true);		// Second instance in the prototype chain
@@ -307,7 +310,7 @@ Warrior.prototype.wield = function() {
 	return "Wilding " + this.weapon;
 }
 
-// Static method: only lives in the class Warrior)
+// Static method: only lives in the class Warrior
 Warrior.duel = function(warrrior1, warrrior2) {
 	return warrrior1.wield() + " " + warrrior2.wield();
 }
