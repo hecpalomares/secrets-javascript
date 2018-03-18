@@ -22,5 +22,5 @@
 // single 'default' export, represent whole moudle through a single export.
 // Both 'export' and 'import' can be renamed via the 'as' keyword.
 
-// 1. Mechanism enables private module variables in the module pattern? -> Closures
-
+// 1. In the module pattern, closures allows us to hide module internals. 
+//		The method of the module's public API keep the module internals alive.

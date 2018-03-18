@@ -13,6 +13,12 @@
 
 // Dimensions of HTML elements -> offsetWidth and offsetHeight properties.
 
-// Layout thrashing -> consecutive reads and writes to DOM forcing to recalculate the layotu information.
+// Layout thrashing -> consecutive reads and writes to DOM forcing to recalculate the layout information.
 
 // Batch DOM updates! (Read with Reads | Writes with Writes)
+
+/*Excercises*/
+// 1. The id attribute and id property are linked, a change in one is change in the other.
+// 3. getComputedStyle, is a built-in method that can be used to access get the computed styles of a HTML element.
+// 4. Layout thrasing occurs when the code performs a series of consecutives reads and writes to DOM. The browser is forced
+//		to recalculare the layout information leading to slower, less responsive, web applications.

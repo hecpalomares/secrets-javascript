@@ -61,15 +61,15 @@ const book3 = { name: "Meditations" };
 
 const author1 = { author: "Ed Catmull" };
 const author2 = { author: "Ray Dalio" };
-const author3 = { author: "Marcus Aurelis" };
+const author3 = { author: "Amy Wallace" };
 
 bookshelfMap.set(book1, author1);
 bookshelfMap.set(book2, author2);
 bookshelfMap.set(book2, author3);
 
-assert(bookshelfMap.size === 2);
-assert(bookshelfMap.has(book1));
-assert(!bookshelfMap.has(book3));
+assert(!bookshelfMap.size === 3);	// Fails since we mapped book2 twice (lines 67, 68)
+assert(bookshelfMap.has(book1));	// Passes since we mapped book1 (line 66)
+assert(!bookshelfMap.has(book3));	// Fails, we never mapped book3
 
 // Ex 7
 const spainTeams = new Set(["Real Madrid", "Barcelona", "Atletico Madrid", "Valencia"]);

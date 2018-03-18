@@ -67,3 +67,4 @@ assert(all[5] === "</div>");
 // Portions of the string can be easily matched with \1 or \2 (number capture)
 // ("myString").match(regexExpression)
 // replace function causes a replacement on pattern matches rather than on a fixed string.
+

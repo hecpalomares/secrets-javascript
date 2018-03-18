@@ -24,10 +24,10 @@
 
 // Excercises
 
-// 1. Adding tasks to the queue should happen outside event-loop, so tasks are not lost when a event is happening.
-// 2. Becouse JS try to render 60 frames per second (60 times per second) = 1 frame every 16ms to complete the 60 fps. 
-// If we want smooth looking applications, we should fit all macrotask and microtask generated and executed every 16ms.
-
+// 1.	It is important that adding tasks into task queue happens outside the event loop. Because events will be ignored
+//		if JavaScript code is currently executed.
+// 2. To achieve smooth-render applications, JS try to render 60 times per second. Rendering is performed at the end of the event-loop
+// 		Each iteration shouldn't last longer 16ms.
 // 3. 
 setTimeout(function() {
 	console.log("Timeout");
@@ -37,7 +37,9 @@ setInterval(function() {
 	console.log("Interval");
 }, 500);
 
-// Interval Timeout Interval Interval...
+// A. [Interval Timeout Interval Interval...]. 
+//	setInterval method calls the handler at a fixed delay, until cleared with a clearTimeout.
+// 	setTimeout method the callback only once.
 
 // 4. 
 let timeoutID = setTimeout(function() {
@@ -50,6 +52,6 @@ setInterval(function() {
 
 clearTimeout(timeoutID);
 
-// Interval Interval Interval Interval...
+// A. [Interval Interval Interval Interval...]. setTimeout callback is cleared before it has a chance to fire.
 
 // 5. outer -> inner -> document
